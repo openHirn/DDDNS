@@ -1,0 +1,34 @@
+////
+//  @file
+//  Example named.conf.local file allowing for dynamic updates from localhost
+//  for dyn1.example.com and dyn2.example.com. (Adapt to match your hosts.)
+
+// See bind manual.
+//include "/etc/bind/zones.rfc1918";
+
+// Assuming your web server and BIND are on the same machine.
+// (Adapt in other cases!)
+acl dddns {
+	// localhost in our example.
+	127.0.0.1;
+};
+
+zone "dyn1.example.com" {
+	type master;
+
+	// Path to wherever the zone file is stored.
+	// Must be readable and writable by the bind user
+	// ("named" or "bind", depending on the release).
+	file "/var/lib/bind/dyn1.example.com.hosts";
+
+	// Allow updates for the above acl.
+	allow-update {dddns;};
+};
+
+zone "dyn2.example.com" {
+	type master;
+	file "/var/lib/bind/dyn2.example.com.hosts";
+	allow-update {dddns;};
+};
+
+// Other entries as of your DNS setting.

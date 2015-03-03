@@ -1,0 +1,45 @@
+;;
+; @file
+; Example DNS zonefile.
+;
+; This example zonefile shows how to do a partial delegation to your dddns.
+;
+; This zone file would be served by your hoster's DNS or by any static DNS
+; server, which must be linked at the TLD registry with a static IP.
+;
+; DNS would resolve example.com and *.example.com to 123.45.6.7, except for
+; dyn1.example.com and dyn2.example.com. Requests regarding the latter
+; would be forwarded to your dynamic DNS server (your.dddns.host).
+; This is achieved with the "NS" records for the dynamic subdomains.
+;
+; See dns.example.dddns.txt on a zone example for your own DNS server.
+
+$ORIGIN example.com.	; Might be restricted/replaced by your ISP.
+$TTL 86400 				; One day.
+
+@   IN SOA your.primary.dns.host. emailname.your.primary.dns.host. (
+    1234567890   ; serial
+    14400        ; refresh
+    1800         ; retry
+    604800       ; expire
+    86400 )      ; minimum TTL
+
+; Send clients for "dyn1.example.com" and "dyn2.example.com" to your
+; dynamic DNS server (your.dddns.host):
+dyn1		IN NS      your.dddns.host.
+dyn2		IN NS      your.dddns.host.
+
+; Serve any other entries from your default ("main") DNS server(s):
+@		IN NS      your.primary.dns.host.
+@		IN NS      your.secondary.dns.host.
+; and maybe more.
+
+localhost		IN	A	127.0.0.1
+
+; covers your main domain:
+@		IN	A	123.45.6.7
+
+; Wildcard for subdomains; your actual config might differ.
+*		IN	CNAME	@
+
+; Add other entries, e.g. MX, below here.

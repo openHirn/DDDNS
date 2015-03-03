@@ -1,0 +1,36 @@
+;;
+; @file
+; Example DNS zonefile.
+;
+; This is an example zonefile for a standalone DNS which is completely under
+; your control and also officially registered SOA for your domain (example.com).
+; For your dynamic zones (e.g. dyn1.example.com and dyn2.example.com), updates
+; are mady directly from your corresponding DDDNS web server to this DNS server.
+
+$ORIGIN example.com.
+$TTL 86400  ; Default TTL is one day, this is too long for dynamic IPs.
+            ; It will be overridden in the dynamic zone entries.
+
+
+@	IN SOA	your.dddns.host. emailname.your.dddns.host. (
+				1234567890 ; serial
+				10800      ; refresh (3 hours)
+				3600       ; retry (1 hour)
+				604800     ; expire (1 week)
+				60         ; minimum TTL (60 seconds)
+				)
+			NS	your.dddns.host.
+
+localhost	IN	A	127.0.0.1
+
+; covers your main domain:
+@			IN	A	123.45.6.7
+
+; Wildcard for subdomains; your actual config might differ.
+*			IN	CNAME	@
+
+; Note that there is no initial "A" (or any) entry for your dynamic zone(s).
+; DDDNS will handle this automatically on any ns update.
+; It will also set the TTL for the dynamic zones according to your config.
+
+; Other entries (MX, services etc.) below.

@@ -1,0 +1,15 @@
+# Enable for authentication (you *really* should authenticate!).
+#AuthType Basic
+# Set up your "welcome" message
+#AuthName "Please authenticate"
+#require valid-user
+# Provide the path to a password file here:
+#AuthUserFile "/path/to/DDDNS/.htpasswd"
+
+# Enable mod_rewrite and the following rules in order to allow
+# host detection from $_SERVER['REQUEST_URI'].
+#RewriteEngine on
+#RewriteCond %{REQUEST_FILENAME} !-f
+#RewriteCond %{REQUEST_FILENAME} !-d
+#RewriteCond %{REQUEST_FILENAME} !\favicon\.ico\b
+#RewriteRule .* index.php [L,QSA]
