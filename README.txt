@@ -1,6 +1,7 @@
 ------------------------------------------------------------------------------
   DDDNS library Readme
-  git://internal/git/lib/php/DDDNS
+  https://github.com/openHirn/DDDNS
+  git@github.com:openHirn/DDDNS.git
 
   Copyright (c)
   - David Herminghaus, www.david-herminghaus.de
