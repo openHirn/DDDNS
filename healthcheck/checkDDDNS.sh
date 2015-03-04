@@ -36,7 +36,7 @@
 #
 # DO NOT add a trailing slash!
 #url="https://user:pass@dddns.example.com"
-url="http://dddns.udev"
+url="http://your.dddns.host"
 
 
 if [ "$1" == "" ]; then
