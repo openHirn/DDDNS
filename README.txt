@@ -653,4 +653,3 @@ If you choose the "html" output format, the html output extension will parse
 the template configured in $config['output']['html']['formatter'].
 'default' resolves to ./templates/html.default.tpl.php, while 'custom'
 would use a template ./templates/html.custom.tpl.php.
-	
